@@ -1,0 +1,226 @@
+{
+  "template_id": "TANK_SEDI_001",
+  "name": "Bể lắng sơ cấp",
+  "name_en": "Primary Sedimentation Tank",
+  "category": "sedimentation",
+  "version": "1.0",
+  "description": "Mẫu thiết kế bể lắng sơ cấp cho xử lý nước thải đô thị",
+  
+  "design_standards": [
+    "TCVN 7957:2008",
+    "QCVN 14:2008/BTNMT"
+  ],
+  
+  "parameters": {
+    "flow_rate": {
+      "symbol": "Q",
+      "unit": "m³/ngày",
+      "description": "Lưu lượng thiết kế",
+      "min": 100,
+      "max": 50000,
+      "default": 1000
+    },
+    "detention_time": {
+      "symbol": "T",
+      "unit": "giờ",
+      "description": "Thời gian lưu nước",
+      "min": 1.5,
+      "max": 3.0,
+      "default": 2.0,
+      "typical_range": [1.5, 2.5]
+    },
+    "surface_loading_rate": {
+      "symbol": "SLR",
+      "unit": "m³/m².ngày",
+      "description": "Tải trọng bề mặt",
+      "min": 20,
+      "max": 50,
+      "default": 35,
+      "typical_range": [25, 40]
+    },
+    "length_width_ratio": {
+      "symbol": "L/W",
+      "unit": "-",
+      "description": "Tỷ lệ dài/rộng",
+      "min": 2.0,
+      "max": 5.0,
+      "default": 3.0
+    },
+    "depth": {
+      "symbol": "H",
+      "unit": "m",
+      "description": "Chiều sâu nước",
+      "min": 2.0,
+      "max": 5.0,
+      "default": 3.0,
+      "typical_range": [2.5, 4.0]
+    },
+    "freeboard": {
+      "symbol": "Hf",
+      "unit": "m",
+      "description": "Chiều cao an toàn",
+      "min": 0.3,
+      "max": 0.5,
+      "default": 0.3
+    },
+    "wall_thickness": {
+      "symbol": "tw",
+      "unit": "m",
+      "description": "Chiều dày thành bể",
+      "min": 0.2,
+      "max": 0.5,
+      "default": 0.25
+    },
+    "bottom_thickness": {
+      "symbol": "tb",
+      "unit": "m",
+      "description": "Chiều dày đáy bể",
+      "min": 0.2,
+      "max": 0.4,
+      "default": 0.3
+    },
+    "bottom_slope": {
+      "symbol": "i",
+      "unit": "%",
+      "description": "Độ dốc đáy",
+      "min": 1.0,
+      "max": 3.0,
+      "default": 2.0
+    },
+    "inlet_velocity": {
+      "symbol": "v_in",
+      "unit": "m/s",
+      "description": "Vận tốc dòng vào",
+      "max": 0.3,
+      "default": 0.15
+    },
+    "weir_loading_rate": {
+      "symbol": "WLR",
+      "unit": "m³/m.ngày",
+      "description": "Tải trọng máng thu",
+      "max": 250,
+      "default": 150
+    },
+    "number_of_tanks": {
+      "symbol": "N",
+      "unit": "-",
+      "description": "Số bể",
+      "min": 1,
+      "max": 8,
+      "default": 2
+    }
+  },
+  
+  "formulas": {
+    "volume": {
+      "formula": "Q * T / 24",
+      "description": "Thể tích bể (m³)"
+    },
+    "surface_area": {
+      "formula": "Q / SLR",
+      "description": "Diện tích bề mặt (m²)"
+    },
+    "width": {
+      "formula": "sqrt(surface_area / (L_W_ratio * N))",
+      "description": "Chiều rộng mỗi bể (m)"
+    },
+    "length": {
+      "formula": "width * L_W_ratio",
+      "description": "Chiều dài mỗi bể (m)"
+    },
+    "actual_volume": {
+      "formula": "length * width * depth * N",
+      "description": "Thể tích thực tế (m³)"
+    },
+    "actual_detention_time": {
+      "formula": "actual_volume / Q * 24",
+      "description": "Thời gian lưu thực tế (giờ)"
+    },
+    "weir_length": {
+      "formula": "Q / WLR",
+      "description": "Chiều dài máng thu (m)"
+    }
+  },
+  
+  "components": {
+    "inlet": {
+      "type": "submerged_weir",
+      "description": "Cửa vào ngập nước",
+      "parameters": {
+        "width_ratio": 0.8,
+        "depth_below_surface": 0.3
+      }
+    },
+    "outlet": {
+      "type": "v_notch_weir",
+      "description": "Máng thu răng cưa",
+      "parameters": {
+        "notch_angle": 90,
+        "notch_spacing": 0.1
+      }
+    },
+    "sludge_hopper": {
+      "type": "pyramidal",
+      "description": "Hố thu bùn",
+      "parameters": {
+        "side_slope": 1.5,
+        "min_depth": 0.5
+      }
+    },
+    "scum_baffle": {
+      "type": "floating",
+      "description": "Tấm chắn váng nổi",
+      "parameters": {
+        "depth_below_surface": 0.2,
+        "height_above_surface": 0.15
+      }
+    }
+  },
+  
+  "materials": {
+    "concrete": {
+      "grade": "B25",
+      "unit_weight": 25,
+      "unit": "kN/m³"
+    },
+    "reinforcement": {
+      "type": "CB400-V",
+      "cover": 50,
+      "unit": "mm"
+    },
+    "waterproofing": {
+      "type": "integral",
+      "additive": "Sika"
+    }
+  },
+  
+  "expected_efficiency": {
+    "TSS_removal": {
+      "min": 50,
+      "max": 70,
+      "typical": 60,
+      "unit": "%"
+    },
+    "BOD_removal": {
+      "min": 25,
+      "max": 40,
+      "typical": 30,
+      "unit": "%"
+    }
+  },
+  
+  "drawings": {
+    "plan": {
+      "scale": "1:100",
+      "layers": ["WALL", "DIMENSION", "EQUIPMENT", "ANNOTATION"]
+    },
+    "section_longitudinal": {
+      "scale": "1:50",
+      "layers": ["WALL", "WATER_LEVEL", "SLUDGE", "DIMENSION"]
+    },
+    "section_transverse": {
+      "scale": "1:50",
+      "layers": ["WALL", "REINFORCEMENT", "DIMENSION"]
+    }
+  }
+}

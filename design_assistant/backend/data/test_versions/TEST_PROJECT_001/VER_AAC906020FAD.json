@@ -1,0 +1,29 @@
+{
+  "version_id": "VER_AAC906020FAD",
+  "version_number": 2,
+  "version_tag": "v1.1",
+  "project_id": "TEST_PROJECT_001",
+  "created_at": "2026-02-04T14:29:23.080302",
+  "created_by": "system",
+  "description": "Updated dimensions",
+  "status": "approved",
+  "input_params": {
+    "length": 14.0,
+    "width": 6.0,
+    "depth": 4.5
+  },
+  "calculation_log": {
+    "steps": [
+      {
+        "step_id": "S1",
+        "name": "Volume",
+        "result": 378
+      }
+    ]
+  },
+  "output_files": [],
+  "applied_rules": {},
+  "has_overrides": false,
+  "override_log": [],
+  "content_hash": "f6f43412204ed260"
+}

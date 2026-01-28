@@ -1,0 +1,40 @@
+# HydroDraft - Dependencies
+# Offline-first Professional Engineering Platform
+
+# Core Framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Database - SQLite (Offline)
+sqlalchemy[asyncio]>=2.0.25
+aiosqlite>=0.19.0
+greenlet>=3.0.0
+
+# CAD/BIM Generation
+ezdxf>=1.1.0
+
+# Calculations
+numpy>=1.24.0
+scipy>=1.10.0
+
+# PDF Report Generation (Sprint 4)
+reportlab>=4.0.0
+Pillow>=10.2.0
+
+# Desktop GUI (Native Window)
+pywebview>=4.4.0
+
+# Utils
+python-multipart>=0.0.6
+python-dotenv>=1.0.0
+
+# Packaging (for building executable)
+pyinstaller>=6.0.0
+
+# pythonOCC - Required for 3D CAD features (Optional)
+# Install via conda: conda install -c conda-forge pythonocc-core
+
+# ifcopenshell - Required for IFC export (Optional)
+# Install via conda: conda install -c conda-forge ifcopenshell

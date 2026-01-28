@@ -1,0 +1,31 @@
+{
+  "version_id": "VER_F8FCB6E06AAA",
+  "version_number": 1,
+  "version_tag": "v1.0",
+  "project_id": "INTEGRATION_TEST_001",
+  "created_at": "2026-02-04T22:19:49.735739",
+  "created_by": "system",
+  "description": "",
+  "status": "draft",
+  "input_params": {
+    "length": 10,
+    "width": 5,
+    "depth": 3.5
+  },
+  "calculation_log": {
+    "steps": [],
+    "final_results": {
+      "volume": 175
+    }
+  },
+  "output_files": [
+    {
+      "path": "./outputs/test_sprint4/integration\\integration_BIM.json",
+      "type": "bim"
+    }
+  ],
+  "applied_rules": {},
+  "has_overrides": false,
+  "override_log": [],
+  "content_hash": "67cc1a0bf60d9b70"
+}

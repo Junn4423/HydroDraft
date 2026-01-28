@@ -1,0 +1,22 @@
+{
+  "version_id": "VER_2A97324980FA",
+  "version_number": 1,
+  "version_tag": "v1.0.0",
+  "project_id": "TEST-001",
+  "created_at": "2026-02-04T15:37:18.479807",
+  "created_by": "system",
+  "description": "Initial version",
+  "status": "draft",
+  "input_params": {
+    "flow_rate": 1000,
+    "tank_type": "sedimentation"
+  },
+  "calculation_log": {
+    "step1": "calculated dimensions"
+  },
+  "output_files": [],
+  "applied_rules": {},
+  "has_overrides": false,
+  "override_log": [],
+  "content_hash": "b5c4e76b15f810cc"
+}

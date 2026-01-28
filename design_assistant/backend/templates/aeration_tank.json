@@ -1,0 +1,244 @@
+{
+  "template_id": "TANK_AERA_001",
+  "name": "Bể hiếu khí XLNT",
+  "name_en": "Aeration Tank",
+  "category": "biological",
+  "version": "1.0",
+  "description": "Mẫu thiết kế bể hiếu khí cho hệ thống xử lý nước thải bùn hoạt tính",
+  
+  "design_standards": [
+    "TCVN 7957:2008",
+    "QCVN 14:2008/BTNMT"
+  ],
+  
+  "parameters": {
+    "flow_rate": {
+      "symbol": "Q",
+      "unit": "m³/ngày",
+      "description": "Lưu lượng thiết kế",
+      "min": 100,
+      "max": 50000,
+      "default": 1000
+    },
+    "BOD_influent": {
+      "symbol": "BOD_in",
+      "unit": "mg/L",
+      "description": "BOD5 đầu vào",
+      "min": 100,
+      "max": 500,
+      "default": 200
+    },
+    "BOD_effluent": {
+      "symbol": "BOD_out",
+      "unit": "mg/L",
+      "description": "BOD5 đầu ra yêu cầu",
+      "min": 10,
+      "max": 50,
+      "default": 30
+    },
+    "MLSS": {
+      "symbol": "X",
+      "unit": "mg/L",
+      "description": "Nồng độ bùn trong bể",
+      "min": 2000,
+      "max": 6000,
+      "default": 3500,
+      "typical_range": [3000, 4000]
+    },
+    "MLVSS_ratio": {
+      "symbol": "MLVSS/MLSS",
+      "unit": "-",
+      "description": "Tỷ lệ MLVSS/MLSS",
+      "min": 0.7,
+      "max": 0.85,
+      "default": 0.8
+    },
+    "SRT": {
+      "symbol": "θc",
+      "unit": "ngày",
+      "description": "Tuổi bùn (Sludge Retention Time)",
+      "min": 5,
+      "max": 25,
+      "default": 10,
+      "typical_range": [8, 15]
+    },
+    "F_M_ratio": {
+      "symbol": "F/M",
+      "unit": "kg BOD/kg MLVSS.ngày",
+      "description": "Tỷ lệ thức ăn/vi sinh",
+      "min": 0.1,
+      "max": 0.6,
+      "default": 0.25,
+      "typical_range": [0.2, 0.4]
+    },
+    "depth": {
+      "symbol": "H",
+      "unit": "m",
+      "description": "Chiều sâu nước",
+      "min": 3.0,
+      "max": 6.0,
+      "default": 4.5,
+      "typical_range": [4.0, 5.0]
+    },
+    "freeboard": {
+      "symbol": "Hf",
+      "unit": "m",
+      "description": "Chiều cao an toàn",
+      "min": 0.3,
+      "max": 0.6,
+      "default": 0.5
+    },
+    "DO": {
+      "symbol": "DO",
+      "unit": "mg/L",
+      "description": "Oxy hòa tan",
+      "min": 1.5,
+      "max": 3.0,
+      "default": 2.0
+    },
+    "temperature": {
+      "symbol": "T",
+      "unit": "°C",
+      "description": "Nhiệt độ nước thải",
+      "min": 15,
+      "max": 35,
+      "default": 25
+    }
+  },
+  
+  "kinetic_coefficients": {
+    "Y": {
+      "value": 0.5,
+      "unit": "kg VSS/kg BOD",
+      "description": "Hệ số sản lượng tế bào"
+    },
+    "kd": {
+      "value": 0.06,
+      "unit": "1/ngày",
+      "description": "Hệ số phân hủy nội bào"
+    },
+    "Ks": {
+      "value": 60,
+      "unit": "mg/L",
+      "description": "Hằng số bán bão hòa"
+    },
+    "k": {
+      "value": 5,
+      "unit": "1/ngày",
+      "description": "Tốc độ sử dụng cơ chất tối đa"
+    }
+  },
+  
+  "formulas": {
+    "BOD_removal_efficiency": {
+      "formula": "(BOD_in - BOD_out) / BOD_in * 100",
+      "description": "Hiệu suất xử lý BOD (%)"
+    },
+    "BOD_load": {
+      "formula": "Q * BOD_in / 1000",
+      "description": "Tải lượng BOD (kg/ngày)"
+    },
+    "biomass_required": {
+      "formula": "BOD_load / (F_M * MLVSS_MLSS)",
+      "description": "Khối lượng bùn cần thiết (kg)"
+    },
+    "volume": {
+      "formula": "biomass_required / X * 1000",
+      "description": "Thể tích bể (m³)"
+    },
+    "HRT": {
+      "formula": "volume / Q * 24",
+      "description": "Thời gian lưu nước (giờ)"
+    },
+    "surface_area": {
+      "formula": "volume / depth",
+      "description": "Diện tích bể (m²)"
+    },
+    "sludge_production": {
+      "formula": "Y * BOD_load - kd * biomass_required",
+      "description": "Lượng bùn sinh ra (kg/ngày)"
+    },
+    "oxygen_required": {
+      "formula": "BOD_load * 1.2 - 1.42 * sludge_production",
+      "description": "Lượng oxy cần thiết (kg O2/ngày)"
+    },
+    "air_flow_rate": {
+      "formula": "oxygen_required / 0.21 / 0.08",
+      "description": "Lưu lượng khí cần thiết (m³/giờ)"
+    }
+  },
+  
+  "aeration_system": {
+    "type": "fine_bubble_diffuser",
+    "description": "Đĩa phân phối khí bọt mịn",
+    "parameters": {
+      "SOTE": {
+        "value": 25,
+        "unit": "%",
+        "description": "Hiệu suất truyền oxy tiêu chuẩn"
+      },
+      "air_flow_per_diffuser": {
+        "min": 2,
+        "max": 5,
+        "unit": "m³/h"
+      },
+      "diffuser_spacing": {
+        "value": 0.5,
+        "unit": "m"
+      }
+    }
+  },
+  
+  "components": {
+    "inlet": {
+      "type": "submerged_pipe",
+      "description": "Ống dẫn nước vào ngập"
+    },
+    "outlet": {
+      "type": "overflow_weir",
+      "description": "Máng tràn thu nước"
+    },
+    "mixer": {
+      "type": "submersible_mixer",
+      "description": "Máy khuấy chìm"
+    },
+    "aeration": {
+      "type": "diffuser_grid",
+      "description": "Lưới đĩa phân phối khí"
+    }
+  },
+  
+  "materials": {
+    "concrete": {
+      "grade": "B25",
+      "unit_weight": 25,
+      "unit": "kN/m³"
+    },
+    "diffuser": {
+      "material": "EPDM membrane",
+      "diameter": 270,
+      "unit": "mm"
+    }
+  },
+  
+  "expected_efficiency": {
+    "BOD_removal": {
+      "min": 85,
+      "max": 95,
+      "typical": 90,
+      "unit": "%"
+    },
+    "TSS_removal": {
+      "min": 85,
+      "max": 95,
+      "typical": 90,
+      "unit": "%"
+    },
+    "NH4_removal": {
+      "min": 70,
+      "max": 90,
+      "typical": 80,
+      "unit": "%"
+    }
+  }
+}

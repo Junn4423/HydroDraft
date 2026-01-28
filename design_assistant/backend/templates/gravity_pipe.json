@@ -1,0 +1,249 @@
+{
+  "template_id": "PIPE_GRAVITY_001",
+  "name": "Cống thoát nước tự chảy",
+  "name_en": "Gravity Sewer Pipe",
+  "category": "drainage",
+  "version": "1.0",
+  "description": "Mẫu thiết kế cống thoát nước thải/mưa tự chảy",
+  
+  "design_standards": [
+    "TCVN 7957:2008",
+    "QCVN 07-2:2016/BXD"
+  ],
+  
+  "parameters": {
+    "design_flow": {
+      "symbol": "Q",
+      "unit": "L/s",
+      "description": "Lưu lượng thiết kế",
+      "min": 1,
+      "max": 5000,
+      "default": 100
+    },
+    "pipe_material": {
+      "type": "enum",
+      "options": ["BTCT", "HDPE", "PVC", "GRP", "Gang"],
+      "default": "BTCT",
+      "description": "Vật liệu ống"
+    },
+    "roughness_coefficient": {
+      "symbol": "n",
+      "unit": "-",
+      "description": "Hệ số nhám Manning",
+      "values": {
+        "BTCT": 0.013,
+        "HDPE": 0.009,
+        "PVC": 0.009,
+        "GRP": 0.010,
+        "Gang": 0.012
+      }
+    },
+    "min_slope": {
+      "symbol": "i_min",
+      "unit": "‰",
+      "description": "Độ dốc tối thiểu",
+      "values": {
+        "D200": 8.0,
+        "D300": 5.0,
+        "D400": 4.0,
+        "D500": 3.0,
+        "D600": 2.5,
+        "D800": 2.0,
+        "D1000": 1.5,
+        "D1200": 1.2,
+        "D1500": 1.0
+      }
+    },
+    "max_slope": {
+      "symbol": "i_max",
+      "unit": "‰",
+      "description": "Độ dốc tối đa",
+      "default": 150
+    },
+    "filling_ratio": {
+      "symbol": "h/D",
+      "unit": "-",
+      "description": "Tỷ lệ đầy ống",
+      "wastewater": {
+        "max": 0.75,
+        "recommended": 0.5
+      },
+      "stormwater": {
+        "max": 1.0,
+        "recommended": 0.8
+      }
+    },
+    "min_velocity": {
+      "symbol": "v_min",
+      "unit": "m/s",
+      "description": "Vận tốc tối thiểu (tự làm sạch)",
+      "wastewater": 0.7,
+      "stormwater": 0.75
+    },
+    "max_velocity": {
+      "symbol": "v_max",
+      "unit": "m/s",
+      "description": "Vận tốc tối đa",
+      "values": {
+        "BTCT": 4.0,
+        "HDPE": 6.0,
+        "PVC": 5.0,
+        "GRP": 5.0,
+        "Gang": 8.0
+      }
+    },
+    "min_cover_depth": {
+      "symbol": "H_cover",
+      "unit": "m",
+      "description": "Chiều sâu lấp tối thiểu",
+      "under_road": 0.7,
+      "under_sidewalk": 0.5,
+      "green_area": 0.3
+    }
+  },
+  
+  "standard_diameters": {
+    "unit": "mm",
+    "values": [200, 250, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1400, 1500, 1800, 2000]
+  },
+  
+  "formulas": {
+    "manning_velocity": {
+      "formula": "(1/n) * R^(2/3) * i^(1/2)",
+      "description": "Vận tốc theo Manning (m/s)"
+    },
+    "hydraulic_radius_full": {
+      "formula": "D / 4",
+      "description": "Bán kính thủy lực khi đầy (m)"
+    },
+    "flow_capacity_full": {
+      "formula": "v * π * D² / 4",
+      "description": "Lưu lượng khi đầy (m³/s)"
+    },
+    "actual_flow_area": {
+      "formula": "D² * (θ - sin(θ)) / 8",
+      "description": "Diện tích dòng chảy thực tế (m²)"
+    },
+    "wetted_perimeter": {
+      "formula": "D * θ / 2",
+      "description": "Chu vi ướt (m)"
+    },
+    "shear_stress": {
+      "formula": "ρ * g * R * i",
+      "description": "Ứng suất cắt đáy (N/m²)"
+    }
+  },
+  
+  "manhole_spacing": {
+    "description": "Khoảng cách giếng thăm tối đa",
+    "unit": "m",
+    "values": {
+      "D150-D200": 25,
+      "D250-D300": 35,
+      "D400-D500": 50,
+      "D600-D800": 75,
+      "D900-D1200": 100,
+      "D1500+": 150
+    }
+  },
+  
+  "manhole_types": {
+    "straight": {
+      "name": "Giếng thẳng",
+      "diameter": [1000, 1200, 1500],
+      "unit": "mm"
+    },
+    "angle": {
+      "name": "Giếng góc",
+      "max_deflection": 90,
+      "min_diameter": 1200
+    },
+    "drop": {
+      "name": "Giếng chuyển bậc",
+      "max_drop": 3.0,
+      "external_cascade_min": 1.0
+    },
+    "junction": {
+      "name": "Giếng hợp lưu",
+      "min_diameter": 1500
+    }
+  },
+  
+  "bedding_types": {
+    "class_A": {
+      "name": "Loại A - Bê tông đỡ",
+      "description": "Gối bê tông dày 100mm, góc đỡ 120°",
+      "load_factor": 2.8
+    },
+    "class_B": {
+      "name": "Loại B - Cát đầm chặt",
+      "description": "Đệm cát dày 100mm, đầm K95",
+      "load_factor": 1.9
+    },
+    "class_C": {
+      "name": "Loại C - Cát rời",
+      "description": "Đệm cát tự nhiên 100mm",
+      "load_factor": 1.5
+    },
+    "class_D": {
+      "name": "Loại D - Đặt trực tiếp",
+      "description": "Đặt trên nền đất phẳng",
+      "load_factor": 1.1
+    }
+  },
+  
+  "structural_design": {
+    "earth_load": {
+      "formula": "γ_soil * H",
+      "unit": "kN/m²"
+    },
+    "live_load": {
+      "HL93": {
+        "wheel_load": 72.5,
+        "unit": "kN",
+        "impact_factor": 1.3
+      }
+    },
+    "pipe_strength_classes": {
+      "BTCT": ["K80", "K100", "K120", "K150"],
+      "description": "Cấp chịu lực ống BTCT"
+    }
+  },
+  
+  "materials": {
+    "BTCT": {
+      "name": "Bê tông cốt thép",
+      "density": 2500,
+      "roughness": 0.013,
+      "min_strength": "B22.5"
+    },
+    "HDPE": {
+      "name": "HDPE đặc",
+      "density": 950,
+      "roughness": 0.009,
+      "SDR_classes": [17, 13.6, 11]
+    },
+    "PVC": {
+      "name": "PVC-U",
+      "density": 1400,
+      "roughness": 0.009,
+      "SN_classes": [4, 8, 16]
+    }
+  },
+  
+  "drawings": {
+    "plan": {
+      "scale": "1:500",
+      "layers": ["PIPE_CENTER", "MANHOLE", "ANNOTATION", "DIMENSION"]
+    },
+    "profile": {
+      "horizontal_scale": "1:500",
+      "vertical_scale": "1:100",
+      "layers": ["GROUND", "PIPE", "MANHOLE", "DIMENSION", "TABLE"]
+    },
+    "manhole_detail": {
+      "scale": "1:25",
+      "layers": ["STRUCTURE", "REINFORCEMENT", "DIMENSION"]
+    }
+  }
+}

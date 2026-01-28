@@ -1,0 +1,131 @@
+{
+    "name": "Quy tắc thiết kế đường ống",
+    "version": "1.0.0",
+    "description": "Quy tắc thiết kế đường ống thoát nước theo TCVN",
+    "rules": [
+        {
+            "id": "min_velocity",
+            "name": "Vận tốc tối thiểu",
+            "parameter": "velocity",
+            "unit": "m/s",
+            "type_specific": {
+                "gravity_sewer": {
+                    "min": 0.6,
+                    "recommended": 0.8
+                },
+                "gravity_drain": {
+                    "min": 0.6,
+                    "recommended": 1.0
+                },
+                "pressure": {
+                    "min": 0.5,
+                    "recommended": 1.0
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "max_velocity",
+            "name": "Vận tốc tối đa",
+            "parameter": "velocity",
+            "unit": "m/s",
+            "type_specific": {
+                "gravity_sewer": {
+                    "max": 4.0,
+                    "recommended_max": 3.0
+                },
+                "gravity_drain": {
+                    "max": 6.0,
+                    "recommended_max": 4.0
+                },
+                "pressure": {
+                    "max": 3.0,
+                    "recommended_max": 2.5
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "min_slope",
+            "name": "Độ dốc tối thiểu",
+            "parameter": "slope",
+            "unit": "%",
+            "diameter_dependent": true,
+            "values": {
+                "150": 0.8,
+                "200": 0.5,
+                "250": 0.4,
+                "300": 0.3,
+                "400": 0.2,
+                "500": 0.15,
+                "600": 0.12,
+                "800": 0.08,
+                "1000": 0.06
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "cover_depth",
+            "name": "Độ sâu chôn ống",
+            "parameter": "cover_depth",
+            "unit": "m",
+            "type_specific": {
+                "gravity_sewer": {
+                    "min": 0.7,
+                    "max": 8.0,
+                    "recommended": 1.0
+                },
+                "pressure": {
+                    "min": 0.8,
+                    "max": 3.0,
+                    "recommended": 1.2
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "fill_ratio",
+            "name": "Tỷ lệ đầy ống",
+            "parameter": "fill_ratio",
+            "unit": "%",
+            "type_specific": {
+                "gravity_sewer": {
+                    "min": 20,
+                    "max": 80,
+                    "recommended": 70
+                },
+                "gravity_drain": {
+                    "min": 10,
+                    "max": 90,
+                    "recommended": 80
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "hydraulic_radius",
+            "name": "Bán kính thủy lực",
+            "parameter": "hydraulic_radius",
+            "unit": "m",
+            "formula": "A/P",
+            "description": "A: Diện tích mặt cắt ướt, P: Chu vi ướt"
+        },
+        {
+            "id": "reynolds_number",
+            "name": "Số Reynolds",
+            "parameter": "reynolds",
+            "thresholds": {
+                "laminar": 2300,
+                "transitional": 4000,
+                "turbulent": 10000
+            }
+        }
+    ],
+    "material_roughness": {
+        "concrete": 0.013,
+        "hdpe": 0.009,
+        "pvc": 0.009,
+        "ductile_iron": 0.012,
+        "steel": 0.011
+    }
+}

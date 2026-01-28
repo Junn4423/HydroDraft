@@ -1,0 +1,149 @@
+{
+    "name": "Quy tắc thiết kế bể",
+    "version": "1.0.0",
+    "description": "Quy tắc thiết kế bể xử lý nước/nước thải theo TCVN",
+    "rules": [
+        {
+            "id": "retention_time",
+            "name": "Thời gian lưu nước",
+            "parameter": "retention_time",
+            "unit": "giờ",
+            "type_specific": {
+                "sedimentation": {
+                    "min": 1.5,
+                    "max": 4.0,
+                    "recommended": 2.0
+                },
+                "filtration": {
+                    "min": 0.5,
+                    "max": 2.0,
+                    "recommended": 1.0
+                },
+                "storage": {
+                    "min": 4.0,
+                    "max": 24.0,
+                    "recommended": 8.0
+                },
+                "buffer": {
+                    "min": 2.0,
+                    "max": 8.0,
+                    "recommended": 4.0
+                }
+            },
+            "pass_message": "Thời gian lưu đạt yêu cầu",
+            "fail_message": "Thời gian lưu không đạt yêu cầu",
+            "warning_message": "Thời gian lưu nằm ngoài phạm vi khuyến nghị",
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "surface_loading",
+            "name": "Tải trọng bề mặt",
+            "parameter": "surface_loading",
+            "unit": "m³/m²/ngày",
+            "type_specific": {
+                "sedimentation": {
+                    "min": 20,
+                    "max": 60,
+                    "recommended": 40
+                },
+                "filtration": {
+                    "min": 100,
+                    "max": 200,
+                    "recommended": 150
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "depth",
+            "name": "Chiều sâu nước",
+            "parameter": "depth",
+            "unit": "m",
+            "type_specific": {
+                "sedimentation": {
+                    "min": 2.5,
+                    "max": 5.0,
+                    "recommended": 3.5
+                },
+                "filtration": {
+                    "min": 2.0,
+                    "max": 4.0,
+                    "recommended": 3.0
+                },
+                "storage": {
+                    "min": 2.0,
+                    "max": 6.0,
+                    "recommended": 4.0
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "length_width_ratio",
+            "name": "Tỷ lệ dài/rộng",
+            "parameter": "L/W",
+            "type_specific": {
+                "sedimentation": {
+                    "min": 2.0,
+                    "max": 5.0,
+                    "recommended": 3.0
+                },
+                "filtration": {
+                    "min": 1.0,
+                    "max": 3.0,
+                    "recommended": 2.0
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "horizontal_velocity",
+            "name": "Vận tốc ngang",
+            "parameter": "velocity",
+            "unit": "m/s",
+            "type_specific": {
+                "sedimentation": {
+                    "min": 0.001,
+                    "max": 0.025,
+                    "recommended": 0.01
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "weir_loading",
+            "name": "Tải trọng máng tràn",
+            "parameter": "weir_loading",
+            "unit": "m³/m/ngày",
+            "type_specific": {
+                "sedimentation": {
+                    "min": 100,
+                    "max": 300,
+                    "recommended": 200
+                }
+            },
+            "standard": "TCVN 7957:2008"
+        },
+        {
+            "id": "wall_thickness",
+            "name": "Chiều dày thành",
+            "parameter": "wall_thickness",
+            "unit": "m",
+            "min": 0.20,
+            "max": 0.50,
+            "recommended": 0.30,
+            "formula": "max(0.20, depth/15)",
+            "standard": "TCVN 5574:2018"
+        },
+        {
+            "id": "freeboard",
+            "name": "Chiều cao an toàn",
+            "parameter": "freeboard",
+            "unit": "m",
+            "min": 0.20,
+            "max": 0.50,
+            "recommended": 0.30,
+            "standard": "TCVN 7957:2008"
+        }
+    ]
+}

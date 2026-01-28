@@ -1,0 +1,277 @@
+{
+  "template_id": "WELL_MON_001",
+  "name": "Giếng quan trắc nước ngầm",
+  "name_en": "Groundwater Monitoring Well",
+  "category": "monitoring",
+  "version": "1.0",
+  "description": "Mẫu thiết kế giếng quan trắc nước ngầm theo tiêu chuẩn Việt Nam và quốc tế",
+  
+  "design_standards": [
+    "TCVN 9901:2014",
+    "ASTM D5092-04"
+  ],
+  
+  "well_types": {
+    "shallow": {
+      "name": "Giếng nông",
+      "depth_range": [5, 30],
+      "unit": "m",
+      "typical_aquifer": "Holocene"
+    },
+    "intermediate": {
+      "name": "Giếng trung bình",
+      "depth_range": [30, 100],
+      "unit": "m",
+      "typical_aquifer": "Pleistocene"
+    },
+    "deep": {
+      "name": "Giếng sâu",
+      "depth_range": [100, 300],
+      "unit": "m",
+      "typical_aquifer": "Pliocene"
+    }
+  },
+  
+  "parameters": {
+    "total_depth": {
+      "symbol": "H",
+      "unit": "m",
+      "description": "Tổng chiều sâu giếng",
+      "min": 5,
+      "max": 300,
+      "default": 50
+    },
+    "casing_diameter": {
+      "symbol": "D_c",
+      "unit": "mm",
+      "description": "Đường kính ống chống",
+      "options": [50, 60, 75, 90, 110, 125, 160, 200],
+      "default": 110
+    },
+    "borehole_diameter": {
+      "symbol": "D_b",
+      "unit": "mm",
+      "description": "Đường kính lỗ khoan",
+      "formula": "D_c + 100 đến D_c + 150"
+    },
+    "screen_length": {
+      "symbol": "L_s",
+      "unit": "m",
+      "description": "Chiều dài ống lọc",
+      "min": 1,
+      "max": 30,
+      "typical_ratio": 0.3
+    },
+    "screen_slot_size": {
+      "symbol": "s",
+      "unit": "mm",
+      "description": "Kích thước khe lọc",
+      "options": [0.25, 0.5, 0.75, 1.0, 1.5, 2.0],
+      "selection_rule": "D10 < s < D60 của tầng chứa nước"
+    },
+    "gravel_pack": {
+      "symbol": "GP",
+      "unit": "mm",
+      "description": "Kích cỡ sỏi lọc",
+      "D50_rule": "4 đến 6 lần D50 của tầng chứa nước"
+    },
+    "seal_depth": {
+      "symbol": "H_seal",
+      "unit": "m",
+      "description": "Chiều dài đoạn trám",
+      "min": 3,
+      "default": 5
+    },
+    "protective_casing_height": {
+      "symbol": "H_pc",
+      "unit": "m",
+      "description": "Chiều cao ống bảo vệ",
+      "above_ground": 0.5,
+      "below_ground": 0.3
+    }
+  },
+  
+  "components": {
+    "protective_casing": {
+      "name": "Ống bảo vệ",
+      "material": "Thép mạ kẽm",
+      "diameter": "D_c + 50mm",
+      "features": ["Nắp khóa", "Lỗ thông hơi", "Ống thoát nước"]
+    },
+    "casing": {
+      "name": "Ống chống",
+      "materials": {
+        "PVC": {
+          "schedule": ["SCH40", "SCH80"],
+          "depth_limit": 100
+        },
+        "HDPE": {
+          "SDR": [17, 11],
+          "depth_limit": 150
+        },
+        "Stainless_steel": {
+          "grade": ["304", "316"],
+          "depth_limit": 300
+        }
+      },
+      "joint_type": ["Ren", "Hàn nhiệt", "Măng sông"]
+    },
+    "screen": {
+      "name": "Ống lọc",
+      "types": {
+        "slotted": {
+          "name": "Ống rãnh máy",
+          "open_area": "3-5%"
+        },
+        "wire_wound": {
+          "name": "Ống quấn dây",
+          "open_area": "15-30%",
+          "recommended": true
+        },
+        "prepacked": {
+          "name": "Ống lọc tiền chế sỏi",
+          "description": "Sỏi gắn sẵn vào ống"
+        }
+      }
+    },
+    "gravel_pack": {
+      "name": "Lớp sỏi lọc",
+      "materials": ["Sỏi thạch anh", "Sỏi silica"],
+      "thickness": "50-75mm",
+      "placement": "Từ đáy đến trên đỉnh ống lọc 1m"
+    },
+    "bentonite_seal": {
+      "name": "Nút bentonite",
+      "type": ["Viên nén", "Bột", "Vữa"],
+      "min_thickness": "1m",
+      "location": "Trên lớp sỏi lọc"
+    },
+    "grout_seal": {
+      "name": "Vữa trám",
+      "mix": "Xi măng:bentonite = 95:5",
+      "placement": "Tremie từ dưới lên"
+    },
+    "bottom_cap": {
+      "name": "Nút đáy",
+      "material": "Cùng vật liệu với ống chống"
+    }
+  },
+  
+  "construction_sequence": [
+    {
+      "step": 1,
+      "name": "Khoan tạo lỗ",
+      "method": ["Khoan xoay", "Khoan đập", "Auger"],
+      "notes": "Ghi chép địa tầng, lấy mẫu"
+    },
+    {
+      "step": 2,
+      "name": "Làm sạch lỗ khoan",
+      "method": "Bơm rửa tuần hoàn",
+      "notes": "Loại bỏ mùn khoan"
+    },
+    {
+      "step": 3,
+      "name": "Lắp ống chống và ống lọc",
+      "notes": "Định vị ống lọc đúng vị trí tầng chứa nước"
+    },
+    {
+      "step": 4,
+      "name": "Đổ sỏi lọc",
+      "method": "Đổ trực tiếp hoặc qua ống tremie",
+      "notes": "Đổ từ từ, tránh nghẽn"
+    },
+    {
+      "step": 5,
+      "name": "Đặt nút bentonite",
+      "method": "Thả viên nén qua ống tremie"
+    },
+    {
+      "step": 6,
+      "name": "Trám vữa",
+      "method": "Bơm tremie từ dưới lên",
+      "notes": "Đảm bảo không có khoảng rỗng"
+    },
+    {
+      "step": 7,
+      "name": "Phát triển giếng",
+      "methods": ["Bơm khí nén", "Bơm hút xả", "Surging"],
+      "duration": "Đến khi nước trong"
+    },
+    {
+      "step": 8,
+      "name": "Lắp ống bảo vệ",
+      "notes": "Đổ bê tông nền, gắn nắp khóa"
+    }
+  ],
+  
+  "well_development": {
+    "purpose": "Làm sạch thành giếng, tăng hiệu suất",
+    "methods": {
+      "surging": {
+        "name": "Khuấy trộn",
+        "description": "Dùng surge block tạo dòng chảy hai chiều"
+      },
+      "airlift": {
+        "name": "Bơm khí nén",
+        "air_flow": "0.3-0.5 m³/phút",
+        "duration": "2-4 giờ"
+      },
+      "overpumping": {
+        "name": "Bơm cưỡng bức",
+        "rate": "1.5-2 lần lưu lượng dự kiến"
+      }
+    },
+    "completion_criteria": [
+      "Nước trong suốt",
+      "Turbidity < 5 NTU",
+      "Sand content < 5 mg/L"
+    ]
+  },
+  
+  "monitoring_equipment": {
+    "water_level": {
+      "manual": ["Thước dây điện", "Thước đo âm"],
+      "automatic": ["Pressure transducer", "Data logger"]
+    },
+    "sampling": {
+      "methods": ["Bailer", "Peristaltic pump", "Bladder pump"],
+      "purging": "3-5 lần thể tích giếng hoặc đến khi ổn định"
+    }
+  },
+  
+  "materials": {
+    "casing_pvc": {
+      "standard": "TCVN 6151-1:2002",
+      "pressure_class": "PN10"
+    },
+    "gravel": {
+      "type": "Thạch anh",
+      "roundness": "Tròn cạnh",
+      "purity": "> 95% SiO2"
+    },
+    "bentonite": {
+      "type": "Sodium bentonite",
+      "swelling": "> 20 mL/2g"
+    },
+    "cement": {
+      "type": "PC40",
+      "additive": "Bentonite 5%"
+    }
+  },
+  
+  "drawings": {
+    "plan": {
+      "scale": "1:500",
+      "content": ["Vị trí giếng", "Lưới quan trắc", "Địa hình"]
+    },
+    "section": {
+      "scale": "1:50",
+      "content": ["Cột địa tầng", "Cấu trúc giếng", "Mực nước"]
+    },
+    "detail": {
+      "scale": "1:10",
+      "content": ["Miệng giếng", "Đầu nối", "Ống bảo vệ"]
+    }
+  }
+}
